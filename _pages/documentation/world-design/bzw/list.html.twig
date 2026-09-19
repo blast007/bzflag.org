@@ -1,0 +1,67 @@
+---
+section: documentation
+sectiontitle: User Docs
+permalink: /documentation/world-design/bzw/
+title: World Creation
+parent:
+---
+
+{% extends "_layouts/page.html.twig" %}
+
+{% set commands = collections.slash_commands | group('category') %}
+{% set categories = [
+    {
+        title: 'Primitive',
+        desc: 'These are primitives like boxes, pyramids, teleporters, arcs, cones, and team bases.',
+    },
+    {
+        title: 'Mesh',
+        desc: 'Mesh objects (and related objects) allow for free-form 3D models.',
+    },
+    {
+        title: 'Other',
+        desc: 'There are objects that do not have a visual representation or are not normal types of obstacles.',
+    },
+] %}
+
+{% block content %}
+    <h1>World Creation</h1>
+
+    <div class="c-alert c-alert--warning mb-4 mt-4">
+        <p class="c-alert__title"><strong>Work In Progress</strong></p>
+        <p>
+            We are working on updating and improving this documentation. Some information may be missing or inaccurate.
+        </p>
+    </div>
+
+    <div class="s-documentation">
+        <p>
+            BZFlag worlds (abbreviated BZW, and sometimes called maps) are written in plain text and are named ending
+            with the .bzw file extension. Any basic text editor is technically able to create and edit a world file.
+            There are various map editor tools at different levels of completeness, but none exist that cover all
+            the features of the BZW format.
+        </p>
+
+        <p>
+            One very important note is that BZFlag uses a right-handed Z-up coordinate system. What this means is that
+            the up direction is Z+, north is Y+, east is X+, and rotation moves counter-clockwise. Some 3D modeling
+            tools use a Y-up coordinate system, and you would need to translate the coordinates when exporting.
+        </p>
+
+    </div>
+
+    {% set objects = collections.bzw_documentation | group('category') %}
+    {% for category in categories %}
+        <h2 id="{{ category.title | slug }}">{{ category.title }}</h2>
+
+        <p>{{ category.desc }}</p>
+
+        <ul>
+            {% for object in objects[category.title] | order('name') %}
+                <li>
+                    <a href="{{ url(object) }}">{{ object.name }}</a>: {{ object.description }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endfor %}
+{% endblock %}

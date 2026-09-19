@@ -1,0 +1,681 @@
+attributes:
+    # Object (From WorldFileObject)
+    object_name:
+        syntax: name <name>
+        description: |
+            Sets the name of this object. In many cases, this does not have any purpose and may just be useful for
+            documenting what the object is for. In some case, like for teleporters, this can be used to reference the
+            object from other objects.
+
+    # Location (from WorldFileLocation)
+    location_position:
+        syntax: position <x> <y> <z>
+        description: |
+            This controls the absolute position of the object, lined up with the bottom center of the object. The center
+            of the world, at ground level, is 0 0 0.
+    location_size:
+        syntax: size <x> <y> <z>
+        description: This controls the size of the object. It accepts three floating point numbers for the X, Y, and Z size of the object. Z is up.
+    location_rotation:
+        syntax: |
+            rot <angle>
+            rotation <angle>
+        description: |
+            Objects can be rotated on the Z axis, with the angle being specified in degrees. Extremely old worlds may
+            use radians and will need to be converted, since BZFlag 1.7e0 used radians, and this was changed to use
+            degrees in BZFlag 1.7e4.
+
+    # Obstacle (From WorldFileObstacle)
+    obstacle_drivethrough:
+        syntax: drivethrough
+        description: This allows tanks to drive through the object.
+    obstacle_shootthrough:
+        syntax: shootthrough
+        description: This allows bullets and beam weapons to pass through the object.
+    obstacle_passable:
+        syntax: passable
+        description: This combines the effects of both the drivethrough and shootthrough attributes.
+    obstacle_ricochet:
+        syntax: ricochet
+        description: On a server with ricochet disabled, this attribute selectively enables ricochet on this object.
+
+    # Transforms (From CustomMeshTransform)
+    transform_shift:
+        syntax: shift <x> <y> <z>
+        description: This shifts the relative position of an object.
+    transform_scale:
+        syntax: scale <x> <y> <z>
+        description: This scales an object up or down in the x, y, and/or z direction, with 1 being 100%.
+    transform_shear:
+        syntax: shear <x> <y> <z>
+        description: ~
+    transform_spin:
+        syntax: spin <angle> <x> <y> <z>
+        description: ~
+    transform_xform:
+        syntax: xform <transform_name>
+        description: |
+            The xform attribute applies the transformations of a [transform](../transform) to an object. You provide the
+            name of the transform object.
+
+    # Common attributes used in a lot of objects
+    common_texsize2:
+        syntax: texsize <float> <float>
+        description: ~
+    common_texsize4:
+        syntax: texsize <float> <float> <float> <float>
+        description: ~
+    common_texoffset2:
+        syntax: texoffset <float> <float>
+        description: ~
+    common_texoffset4:
+        syntax: texoffset <float> <float> <float> <float>
+        description: ~
+    common_smoothbounce:
+        syntax: smoothbounce
+        description: ~
+    common_flatshading:
+        syntax: flatshading
+        description: ~
+    common_phydrv:
+        syntax: phydrv <driver_name>
+        description: |
+            Applies a [physics driver](../physics) named as provided, which alter the physics of a tank when they touch
+            the object. Examples of physics drivers are bounce pads, conveyor belts, and death. You provide the name of
+            the physics driver object.
+
+    # Material
+    material_matref:
+        syntax: matref <material_name>
+        description: |
+            The matref attribute applies a [material](../material) to the object. You provide the name of the material
+            object.
+    material_resetmat:
+        syntax: resetmat
+        description: ~
+    material_dyncol:
+        syntax: dyncol <dynamic_color_name>
+        description: ~
+    material_ambient:
+        syntax: |
+            ambient <red> <green> <blue> [alpha]
+            ambient <color_name> [alpha]
+        description: ~
+    material_diffuse:
+        syntax: |
+            diffuse <red> <green> <blue> [alpha]
+            diffuse <color_name> [alpha]
+            color <red> <green> <blue> [alpha]
+            color <color_name> [alpha]
+        description: ~
+    material_specular:
+        syntax: |
+            specular <red> <green> <blue> [alpha]
+            specular <color_name> [alpha]
+        description: ~
+    material_emission:
+        syntax: |
+            emission <red> <green> <blue> [alpha]
+            emission <color_name> [alpha]
+        description: ~
+    material_shininess:
+        syntax: shininess <float>
+        description: ~
+    material_texture:
+        syntax: texture <texture_name>
+        description: ~
+    material_notextures:
+        syntax: notextures
+        description: ~
+    material_addtexture:
+        syntax: addtexture <texture_name>
+        description: ~
+    material_texmat:
+        syntax: texmat <matrix_name>
+        description: ~
+    material_notexalpha:
+        syntax: notexalpha
+        description: ~
+    material_notexcolor:
+        syntax: notexcolor
+        description: ~
+    material_spheremap:
+        syntax: spheremap
+        description: ~
+    material_noradar:
+        syntax: noradar
+        description: ~
+    material_noshadow:
+        syntax: noshadow
+        description: ~
+    material_noculling:
+        syntax: noculling
+        description: ~
+    material_nosorting:
+        syntax: nosorting
+        description: ~
+    material_nolighting:
+        syntax: nolighting
+        description: ~
+    material_alphathresh:
+        syntax: alphathresh <value>
+        description: ~
+    material_groupalpha:
+        syntax: groupalpha
+        description: ~
+    material_occluder:
+        syntax: occluder
+        description: ~
+    material_shader:
+        syntax: shader <shader_name>
+        description: <span class="text-uppercase">Not implemented.</span>
+    material_addshader:
+        syntax: addshader <shader_name>
+        description: <span class="text-uppercase">Not implemented.</span>
+    material_noshaders:
+        syntax: noshaders
+        description: <span class="text-uppercase">Not implemented.</span>
+
+
+    # Physics
+    physics_linear:
+        syntax: linear <velocity_x> <velocity_y> <velocity_z>
+        description: Applies X, Y, and/or Z velocities to a tank. Useful for creating conveyor belts or jump pads.
+    physics_angular:
+        syntax: angular <velocity> <x> <y>
+        description: ~
+    physics_radial:
+        syntax: radial <velocity> <x> <y>
+        description: ~
+    physics_slide:
+        syntax: slide <slidetime>
+        description: Defines, in seconds, the time until a tank reaches max velocity
+    physics_death:
+        syntax: death Death Message Here
+        description: This causes objects to become fatal when touched. The death message is sent to the player.
+
+
+    # Arc
+    arc_divisions:
+        syntax: divisions <divisions>
+        description: ~
+    arc_angle:
+        syntax: angle <angle>
+        description: ~
+    arc_ratio:
+        syntax: ratio <ratio>
+    arc_side:
+        syntax: |
+            top <attribute> <value...>
+            bottom <attribute> <value...>
+            inside <attribute> <value...>
+            outside <attribute> <value...>
+            startside <attribute> <value...>
+            endside <attribute> <value...>
+        description: ~
+
+    # Base
+    base_color:
+        syntax: color <team_number>
+        description: |
+            The team number can be one of the following:
+
+            | Number | Team   |
+            |--------|--------|
+            | 1      | Red    |
+            | 2      | Green  |
+            | 3      | Blue   |
+            | 4      | Purple |
+    base_oncap:
+        syntax: oncap <flag_abbr>
+        description: |
+            When the team flag for this base's team is capture, this fires a world weapon of the specified type at the
+            same position and rotation of the base. This is mostly useful for SW (ShockWave).
+
+
+    # Box
+    box_side:
+        syntax: |
+            x+ <attribute> <value...>
+            x- <attribute> <value...>
+            y+ <attribute> <value...>
+            y- <attribute> <value...>
+            z+ <attribute> <value...>
+            z- <attribute> <value...>
+            top <attribute> <value...>
+            bottom <attribute> <value...>
+            sides <attribute> <value...>
+            outside <attribute> <value...>
+        description: |
+            These allow for setting some attributes on only certain sides of the box. The "sides" and "outside" are
+            shortcuts that refer to the x+, x-, y+, and y- sides. The supported attributes are shootthrough, ricochet,
+            texsize, texoffset, phydrv, matref, resetmat, dyncol, ambient, diffuse, color, specular, emission,
+            shininess, alphathresh, noculling, nosorting, noradar, noshadow, nolighting, occluder, groupAplha, texture,
+            notextures, addtexture, texmat, notexalpha, notexcolor, spheremap, shader, addshader, and noshaders.
+
+            The drivethrough and passable attributes, while technically allowed to be set per-side, exhibit unusual
+            behavior and should be only be set on the entire box, not on individual faces.
+
+    # Cone
+    cone_divisions:
+        syntax: divisions <int>
+        description: |
+            This controls the number of sides for the base of the cone. The defaults to 16, and can go as low as 3.
+            Setting this higher will make the base appear more and more circular, at the expensive of lower performance.
+    cone_angle:
+        syntax: angle <float>
+        description: |
+            Controls how much of the base polygon is generated, measured in degrees around the cone's central axis. By
+            default, this is 360.
+    cone_side:
+        syntax: |
+            edge <attribute> <value...>
+            bottom <attribute> <value...>
+            startside <attribute> <value...>
+            endside <attribute> <value...>
+        description: |
+            These allow for setting some attributes on only certain sides of the box. The "sides" and "outside" are
+            shortcuts that refer to the x+, x-, y+, and y- sides. The supported attributes are matref, resetmat, dyncol,
+            ambient, diffuse, color, specular, emission, shininess, alphathresh, noculling, nosorting, noradar,
+            noshadow, nolighting, occluder, groupAplha, texture, notextures, addtexture, texmat, notexalpha, notexcolor,
+            spheremap, shader, addshader, and noshaders.
+
+    # Dynamic Color
+    dyncol_limits:
+        syntax: <channel> limits <min> <max>
+        description: ~
+    dyncol_sinusoid:
+        syntax: <channel> sinusoid <period> <offset> <weight>
+        description: ~
+    dyncol_clampup:
+        syntax: <channel> clampup <period> <offset> <width>
+        description: ~
+    dyncol_clampdown:
+        syntax: <channel> clampdown <period> <offset> <width>
+        description: ~
+    dyncol_sequence:
+        syntax: <channel> sequence <period> <offset> <states...>
+        description: |
+            A sequence loops through two or more states, either 0 (clamp down), 1 (no clamp) or 2 (clamp up). Each state
+            is held for the number of seconds defined in the period value. The offset value will allow syncing the
+            sequence and will offset the start of the sequence by the number of seconds specified.
+
+    # Group
+    group_team:
+        syntax: team <team_index>
+        description: Replaces the team on any bases contained in the definition.
+    group_tint:
+        syntax: |
+            tint <red> <green> <blue> [alpha]
+            tint <color_name> [alpha]
+        description: ~
+    group_phydrv:
+        syntax: phydrv <physics_driver>
+        description: ~
+    group_matref:
+        syntax: matref <material_name>
+        description: ~
+    group_matswap:
+        syntax: matswap <old_material_name> <new_material_name>
+        description: ~
+
+    # Mesh
+    mesh_vertex:
+        syntax: vertex <x> <y> <z>
+        description: |
+            This defines a point in 3D space. These points are indexed (or numbered) starting with 0, which will be
+            referenced in mesh faces when specifying the vertices.
+    mesh_normal:
+        syntax: normal ..........
+        description: ~
+    mesh_texcoord:
+        syntax: texcoord .........
+        description: ~
+    mesh_inside:
+        syntax: inside <x> <y> <z>
+        description: |
+            This defines a point in 3D space, and it should be a point that is inside the mesh object. This helps build
+            a collision model that ensure that the "inside" of the mesh is solid. Usually only one inside or outside
+            point is needed.
+    mesh_outside:
+        syntax: outside <x> <y> <z>
+        description: |
+            This defines a point in 3D space, and it should be a point that is outside the mesh object. This helps build
+            a collision model that ensure that the "inside" of the mesh is solid. Usually only one inside or outside
+            point is needed.
+    mesh_face:
+        syntax: face
+        description: This starts a mesh face
+    mesh_endface:
+        syntax: endface
+        description: This ends a mesh face
+
+    # Mesh Face
+    meshface_vertices:
+        syntax: vertices <int> <int> <int...>
+        description: ~
+        indent: 1
+    meshface_normals:
+        syntax: normals <int> <int> <int...>
+        description: ~
+        indent: 1
+    meshface_texcoords:
+        syntax: texcoords <int> <int> <int...>
+        description: ~
+        indent: 1
+    meshface_phydrv:
+        syntax: phydrv <driver_name>
+        description: |
+            Applies a [physics driver](../physics) named as provided, which alter the physics of a tank when they touch
+            the object. Examples of physics drivers are bounce pads, conveyor belts, and death. You provide the name of
+            the physics driver object.
+        indent: 1
+
+    # Mesh Draw Info
+    drawinfo_lod:
+        syntax: lod
+        description: ~
+
+    # Mesh Box (with is actually an arc, which a boolean set and some default values provided)
+
+
+    # Mesh Pyramid (which is actually a cone, with a boolean set and some default values provided)
+    meshpyr_flipz:
+        syntax: flipz
+        description: ~
+
+
+    # Options
+
+
+
+
+    # Pyramid
+    pyramid_face:
+        syntax: |
+            x+ <attribute> <value...>
+            x- <attribute> <value...>
+            y+ <attribute> <value...>
+            y- <attribute> <value...>
+            z- <attribute> <value...>
+            bottom <attribute> <value...>
+            edge <attribute> <value...>
+            sides <attribute> <value...>
+        description: |
+            These allow for setting some attributes on only certain faces of the pyramid. The "edge" and "sides" are
+            shortcuts that refer to the x+, x-, y+, and y- faces. The supported attributes are shootthrough, ricochet
+            (as of 2.4.32), texsize, texoffset, phydrv, matref, resetmat, dyncol, ambient, diffuse, color, specular,
+            emission, shininess, alphathresh, noculling, nosorting, noradar, noshadow, nolighting, occluder, groupAplha,
+            texture, notextures, addtexture, texmat, notexalpha, notexcolor, spheremap, shader, addshader, and
+            noshaders.
+
+            The drivethrough and passable attributes, while technically allowed to be set per-face, exhibit unusual
+            behavior and should be only be set on the entire pyramid, not on individual faces.
+    pyramid_flipz:
+        syntax: flipz
+        description: This flips the pyramid upside down
+
+    # Sphere
+    sphere_divisions:
+        syntax: divisions <divisions>
+        description: Controls the detail level of the sphere. This defaults to 4.
+    sphere_radius:
+        syntax: radius <radius>
+        description: This is a shortcut that sets the X, Y, and Z size to the same value.
+    sphere_hemisphere:
+        syntax: |
+            hemi
+            hemisphere
+        description: This remove the bottom half of the sphere and creates a solid bottom.
+    sphere_side:
+        syntax: |
+            edge <attribute> <value...>
+            bottom <attribute> <value...>
+        description: ~
+
+    # Teleporter
+    teleporter_border:
+        syntax: border <width>
+        description: This controls the size of the border around the left, right, and top of a teleporter gate.
+    teleporter_horizontal:
+        syntax: horizontal
+        description: |
+            This changes a teleporter to be horizontal instead of vertical. However, this was never fully implemented,
+            so the teleporter does not function in this mode, and collision is a bit buggy. It is suggested to avoid
+            using this.
+
+    # Teleporter Link
+    link_from:
+        syntax: |
+            from <teleporter_name>:f
+            from <teleporter_name>:b
+            from <teleporter_side_index>
+        description: ~
+    link_to:
+        syntax: |
+            to <teleporter_name>:f
+            to <teleporter_name>:b
+            to <teleporter_side_index>
+        description: ~
+
+    # Tetra
+
+
+    # Texture Matrix
+    texturematrix_fixedshift:
+        syntax: fixedshift <u> <v>
+        description: ~
+    texturematrix_fixedscale:
+        syntax: fixedscale <u> <v>
+        description: ~
+    texturematrix_fixedspin:
+        syntax: fixedspin <angle>
+        description: ~
+    texturematrix_fixedcenter:
+        syntax: fixedcenter <u> <v>
+        description: ~
+    texturematrix_shift:
+        syntax: shift <u_frequency> <v_frequency>
+        description: ~
+    texturematrix_spin:
+        syntax: spin <frequency>
+        description: ~
+    texturematrix_scale:
+        syntax: scale <u_frequency> <v_frequency> <u_scale> <v_scale>
+        description: ~
+    texturematrix_center:
+        syntax: center <u> <v>
+        description: ~
+
+
+    # Transform
+
+
+    # Water Level
+    waterlevel_height:
+        syntax: height <height>
+        description: |
+            This sets the water level to the specified height. Any tanks that move below this height will be destroyed.
+
+
+    # Weapon
+    weapon_initdelay:
+        syntax: initdelay <seconds>
+        description: |
+            The initial delay after starting a server before a weapon starts firing. This defaults to 10 seconds. This
+            is useful for coordinating when multiple weapons fire relative to each other.
+    weapon_delay:
+        syntax: |
+            delay <seconds...>
+        description: |
+            The delay(s) between shooting. The minimum value is 0.1 seconds. Multiple delay values can be included after
+            the delay keyword. For instance, `delay 1 5 2` will delay 1 second, then 5 seconds, then 2 seconds, and will
+            repeat that cycle in a loop.
+    weapon_type:
+        syntax: type <flag_abbreviation>
+        # TODO: Does Genocide also have an effect here? Does PZ shoot zoned bullets? What about rapid fire?
+        description: |
+            Defines the type of weapon that is fixed. This defaults to a Null flag, which means it behaves like a tank
+            shooting without any flag held. Most flag types won't have any effect here. Ones that will include G
+            (Genocide), GM (Guided Missile), L (Laser), MG (Machine Gun), Rapid Fire (F), Ricochet (R), SB (Super
+            Bullet), SW (ShockWave), and TH (Thief).
+    weapon_color:
+        syntax: color <team_index>
+        description: Sets the team color of the world weapon. This defaults to the Rogue team.
+    weapon_tilt:
+        syntax: tilt <angle>
+        description: |
+            Controls the angle that the weapon fires, in degrees, with 0 being the default shooting forward level to the
+            ground.
+    weapon_trigger:
+        syntax: |
+            trigger oncap
+            trigger onspawn
+            trigger ondie
+        description: |
+            Trigger this weapon on a specific event. A common use for this is oncap spawns to clear a team base of
+            opposing players when that team's flag is captured to prevent spawn kills.
+    # TODO: Check how the various triggers work for eventteam. For intsance, does oncap trigger for the CAPTURED team?
+    weapon_eventteam:
+        syntax: eventteam <team_index>
+        description: Restricts the trigger to a specific team.
+
+    # World
+    world_size:
+        syntax: size <size>
+        description: |
+            This sets the `_worldSize` variable to twice the value specified. So, with `size 200`, this would be
+            equivalent to adding `-set _worldSIze 400` to the command line or in the options block of a world file.
+    world_flagHeight:
+        syntax: flagHeight <height>
+        description: |
+            This is equivalent to using `-set _flagHeight <height>` on the command line or in the options block of a
+            world file. It changes the height of the flag pole for super flags.
+    world_noWalls:
+        syntax: noWalls
+        description: |
+            When this is set, then the outer walls are not generated. This means that players could drive beyond the
+            normal boundaries of the world, which will result in the server kicking the player for being out of bounds.
+            This option is to be used when the world author creates their own obstructions to prevent a player from
+            leaving the world boundaries.
+
+            If, instead, you want the boundaries to still exist but just have 0 height, use `-set _wallHeight 0` on
+            either the command line or inside the [options](../options/) block in the world. This would still draw the
+            world walls on the radar, but would prevent any shots from ricocheting off the outer wall. Instead, shots
+            that hit the outer wall (aside from Super Bullet) will just end, in the say way they would if you shot over
+            the outer walls normally.
+    world_freeCtfSpawns:
+        syntax: freeCtfSpawns
+        description: |
+            In the Capture The Flag (CTF) game mode, players normally spawn on their respective team base the first time
+            they spawn after joining and the first time they spawn after their flag is captured. This changes the
+            behavior so that players do not spawn on their base and will spawn randomly in the world.
+
+
+    # Zone
+    zone_flag:
+        syntax: |
+            flag good
+            flag bad
+            flag <flag_abbreviation>
+        # TODO: Are team flags affected by this?
+        description: |
+            Normally, flags added explicitly using the server option +f or randomly using the server options -s and +s
+            will spawn randomly in the world, or in the case of team flags, on the matching team base. This option
+            instructs the server to only spawn flags of the specified type inside of this zone. This is repeatable, so
+            multiple flag attributes can be specified in a single zone to include multiple flag types. If multiple zones
+            exist with the same flag type, the flags will be randomly distributed across the zones.
+
+            Flags added to the world using the "zoneflag" attribute of another zone will not be forced to spawn inside
+            of a zone that has a matching "flag" attribute.
+    # TODO: Does this add more team flags if used?
+    zone_zoneflag:
+        syntax: |
+            zoneflag good <quantity>
+            zoneflag bad <quantity>
+            zoneflag <flag_abbreviation> <quantity>
+        description: |
+            Unlike the "flag" attribute, the zoneflag attribute actually adds additional flags to the world and places
+            them inside of this specific zone. This is repeatable to add multiple types of flags to a zone.
+
+            Using the "good" or "bad" shortcuts will add every single flag of a given category at the quantity
+            specified, so "zoneflag good 5" would add 5 of *every* good flag.
+    zone_team:
+        syntax: team <team_index>
+        description: |
+            Normally, player tanks can spawn anywhere in the world. The team attribute creates a spawn zone for a given
+            team that causes spawns to only occur inside of the zone. Multiple zones can be created and spawns would be
+            randomly distributed between them.
+    # TODO: Describe the normal team flag behavior and also document what safety does
+    # TODO: Mention that if no explicit safety zones are added, default safety zones at 0,0,0 are created for each team
+    zone_safety:
+        syntax: safety <team_index>
+        description: ~
+
+
+
+
+
+
+
+# angle := <float>
+# 2dpoint := <float> <float>
+# 3dpoint := <float> <float> <float>
+# rgbColor := <float> <float> <float>
+# alpha := <float>
+# rgbaColor := rgbColor alpha? | <color_name> alpha?
+# channel := red | green | blue | alpha
+
+attribute_groups:
+    location:
+        attributes:
+            - "@object"
+            - location_position
+            - location_size
+            - location_rotation
+            - transform_shift
+            - transform_scale
+            - transform_shear
+            - transform_spin
+            - transform_xform
+    object:
+        attributes:
+            - object_name
+
+    obstacle:
+        attributes:
+            - "@location"
+            - obstacle_drivethrough
+            - obstacle_shootthrough
+            - obstacle_passable
+            - obstacle_ricochet
+
+    material:
+        attributes:
+            - material_matref
+            - material_resetmat
+            - material_dyncol
+            - material_ambient
+            - material_diffuse
+            - material_specular
+            - material_emission
+            - material_shininess
+            - material_alphathresh
+            - material_noculling
+            - material_nosorting
+            - material_noradar
+            - material_noshadow
+            - material_nolighting
+            - material_occluder
+            - material_groupalpha
+            - material_texture
+            - material_notextures
+            - material_addtexture
+            - material_texmat
+            - material_notexalpha
+            - material_notexcolor
+            - material_spheremap
+            #- material_shader
+            #- material_addshader
+            #- material_noshaders
+

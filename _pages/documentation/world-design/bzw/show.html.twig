@@ -1,0 +1,120 @@
+---
+collection: bzw_documentation
+editable: true
+section: documentation
+sectiontitle: World Creation
+permalink: /documentation/world-design/bzw/%basename/
+title: %name
+navigation:
+    prev: World Creation
+parent:
+---
+
+{% extends "_layouts/page-sidebar.html.twig" %}
+{% from _self import bzw_attribute_table %}
+
+
+{%- set variables = {col_1: "col-6 align-top", col_2: "col-6 align-top"} -%}
+
+{% set attributes_written = [] %}
+
+{% macro bzw_attribute_table(attributes, variables) -%}
+    {% from _self import bzw_attribute_row %}
+
+    <table class="responsive-lg">
+        <thead>
+        <tr>
+            <th class="{{ variables.col_1 }}">Syntax</th>
+            <th class="{{ variables.col_2 }}">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        {% for attribute in attributes %}
+            {{ bzw_attribute_row(attribute, variables) }}
+        {% endfor %}
+        </tbody>
+    </table>
+{% endmacro %}
+
+
+{% macro bzw_attribute_row(attribute, variables) -%}
+    {% from _self import bzw_attribute_group %}
+
+    {% if attribute | slice(0, 1) == '@' %}
+        {{ bzw_attribute_group(attribute | slice(1), variables) }}
+    {% elseif data.bzw.attributes[attribute] %}
+        <tr>
+            <td class="{{ variables.col_1 }} ">
+                {% if data.bzw.attributes[attribute].indent > 0 %}
+                {% for i in 1..(data.bzw.attributes[attribute].indent) %}<i class="syntax-indent"></i>{% endfor %}
+                {% endif %}
+                {{- data.bzw.attributes[attribute].syntax | escape | nl2br -}}
+            </td>
+            <td class="{{ variables.col_2 }}">
+                {{ data.bzw.attributes[attribute].description | markdown -}}
+            </td>
+        </tr>
+    {% else %}
+        <tr>
+            <td class="{{ variables.col_1 }}">
+                {{ attribute }}
+            </td>
+            <td class="{{ variables.col_2 }}">
+                <strong>ERROR:</strong> Missing attribute definition.
+            </td>
+        </tr>
+    {% endif %}
+{% endmacro %}
+
+
+{% macro bzw_attribute_group(group, variables) %}
+    {% from _self import bzw_attribute_row %}
+
+    {% for attribute in data.bzw.attribute_groups[group].attributes %}
+        {{ bzw_attribute_row(attribute, variables) }}
+    {% endfor %}
+{% endmacro %}
+
+
+{% set objects = collections.bzw_documentation | where('category', '==', this.category) %}
+
+{% block introduction %}
+    <h1 class="mt-0">{{ this.name }} Object</h1>
+
+    <div class="c-alert c-alert--warning mb-4 mt-4">
+        <p class="c-alert__title"><strong>Work In Progress</strong></p>
+        <p>
+            We are working on updating and improving this documentation. Some information may be missing or inaccurate.
+        </p>
+    </div>
+{% endblock %}
+
+{% block aside %}
+    <h2
+        class="mt-0 c-accordion__header"
+        data-role="accordion"
+        data-target="#sidebar-toc"
+        data-breakpoint="lg"
+    >
+        {{ this.category }} Objects
+    </h2>
+
+    <div id="sidebar-toc" class="c-accordion__body">
+        <ul class="m-0">
+            {% for object in objects | order('filename') %}
+                <li>
+                    <a href="{{ url(object) }}"
+                       class="text-decoration-none"
+                    >
+                        {{- object.name -}}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
+
+{% block content %}
+    {{ this.content | markdown | replace({'%attributes%': bzw_attribute_table(this.attributes, variables)}) }}
+{% endblock %}

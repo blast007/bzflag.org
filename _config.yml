@@ -25,6 +25,8 @@ collections:
       folder: _documentation/user/flags
     - name: slash_commands
       folder: _documentation/user/slash_commands
+    - name: bzw_documentation
+      folder: _documentation/world-design/bzw
     - name: developer_documentation
       folder: _documentation/developer/pages
     - name: bzfs_api_events

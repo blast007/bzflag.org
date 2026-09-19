@@ -32,17 +32,24 @@ permalink: /documentation/
     </div>
 
     {% markdown %}
-        ## Map Design
+        ## World Design
 
-        Looking to scratch that creative itch? You can create your own maps for BZFlag for other players to enjoy!
+        Looking to scratch that creative itch? You can create your own worlds for BZFlag for other players to enjoy!
     {% endmarkdown %}
 
     <div class="row">
         <div class="col-lg-6">
             {% markdown %}
+                ### [World Creation]({{ url(pages['World Creation']) }})
+
+                The BZFlag World format, abbreviated as BZW, is a plain text representation of a 3D world for the game. Objects that can be added range from primatives like boxes and pyramids to fully defined 3D mesh objects.
+            {% endmarkdown %}
+        </div>
+        <div class="col-lg-6">
+            {% markdown %}
                 ### [BZDB Variables]({{ url(pages['BZDB Variables']) }})
 
-                BZFlag Database Variables (BZDB variables) are a way to configure the behavior tanks experience on a given map, whether it's the tank speed, the shot speed, the amount of gravity, and even the sky color!
+                BZFlag Database Variables (BZDB variables) are a way to configure the behavior tanks experience on a given world or server, whether it's the tank speed, the shot speed, the amount of gravity, and even the sky color!
             {% endmarkdown %}
         </div>
     </div>
